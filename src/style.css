@@ -1,0 +1,162 @@
+:root {
+  --bg-1: #fbf8f2;
+  --bg-2: #f2ecdf;
+  --ink: #37302a;
+  --ink-2: #8b8072;
+  --ink-3: #b7ab99;
+  --paper: #fffdf8;
+  --line: #efe6d6;
+  --accent: #b4552d;
+  --accent-deep: #93401f;
+  --gold: #c9a24b;
+  --shadow-sm: 0 6px 18px -8px rgba(90, 66, 40, 0.18);
+  --shadow-md: 0 24px 60px -24px rgba(90, 66, 40, 0.35);
+  --radius: 20px;
+  --font-serif: 'Songti SC', 'Noto Serif SC', 'STSong', 'SimSun', serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue',
+    'Microsoft YaHei', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--ink);
+  background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+}
+
+#app {
+  min-height: 100dvh;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ---------- 通用按钮 ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  padding: 13px 34px;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  user-select: none;
+}
+
+.btn:not(:disabled):active {
+  transform: scale(0.96);
+}
+
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+  box-shadow: 0 12px 28px -10px rgba(180, 85, 45, 0.55);
+}
+
+.btn-primary:not(:disabled):hover {
+  box-shadow: 0 16px 34px -10px rgba(180, 85, 45, 0.65);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  color: var(--accent);
+  border: 1px solid rgba(180, 85, 45, 0.35);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(6px);
+  padding: 10px 30px;
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.btn-full {
+  width: 100%;
+}
+
+/* ---------- 抽签 / 卡片动画 ---------- */
+@keyframes ld-card-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(26px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ld-slip-in {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.1);
+  }
+  55% {
+    opacity: 1;
+    transform: scaleY(1.05);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes ld-toast-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-14px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ld-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ld-pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* 签条竖线渐现（抽签过程中使用） */
+.ld-slip-anim {
+  animation: ld-slip-in 0.8s cubic-bezier(0.22, 0.9, 0.3, 1) both;
+}
