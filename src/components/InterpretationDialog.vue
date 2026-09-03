@@ -55,6 +55,26 @@ const lines = computed(() => {
                 </section>
               </template>
 
+              <template v-else-if="system === 'mazu'">
+                <section v-if="sign.allusion" class="sec">
+                  <h4>典故</h4>
+                  <p>{{ sign.allusion }}</p>
+                </section>
+                <section class="sec">
+                  <h4>解签</h4>
+                  <p>{{ sign.detail }}</p>
+                </section>
+                <section class="sec">
+                  <h4>各事预兆</h4>
+                  <ul class="omen-grid">
+                    <li v-for="(v, k) in sign.omen" :key="k" class="omen-item">
+                      <span class="omen-k">{{ k }}</span>
+                      <span class="omen-v">{{ v }}</span>
+                    </li>
+                  </ul>
+                </section>
+              </template>
+
               <template v-else>
                 <section class="sec">
                   <h4>签意</h4>
@@ -206,6 +226,43 @@ const lines = computed(() => {
   line-height: 1.9;
   color: var(--ink-2);
   white-space: pre-line;
+}
+
+/* 妈祖签「各事预兆」：两列网格，每项 事项名 + 吉凶断语 */
+.omen-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 20px;
+  margin-top: 2px;
+}
+
+.omen-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px dashed rgba(201, 162, 75, 0.28);
+  font-size: 13px;
+}
+
+.omen-item:last-child:nth-child(odd) {
+  border-bottom: none;
+}
+
+.omen-k {
+  flex-shrink: 0;
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.omen-v {
+  color: var(--ink-2);
+  text-align: right;
 }
 
 .dialog > .btn {

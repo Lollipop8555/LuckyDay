@@ -2,10 +2,12 @@
 import { ref, computed, nextTick } from 'vue'
 import SignStrip from './components/SignStrip.vue'
 import InterpretationDialog from './components/InterpretationDialog.vue'
-import { SYSTEMS, getZhSigns, loadChimsSigns, shouldReroll } from './utils/signs'
+import { SYSTEMS, getZhSigns, loadMazuSigns, loadChimsSigns, shouldReroll } from './utils/signs'
 import { getFingerprint, drawIndex, loadHistory, saveHistory } from './utils/storage'
 
 const system = ref('zh')
+// 按系统注册加载器：浅草寺为静态内联，妈祖/诸葛数据较大按需动态加载
+const loaders = { zh: null, mazu: loadMazuSigns, chims: loadChimsSigns }
 const signsCache = { zh: getZhSigns() }
 const signs = ref(signsCache.zh)
 const history = ref(loadHistory('zh'))
@@ -41,7 +43,7 @@ async function switchSystem(key) {
   if (!signsCache[key]) {
     loading.value = true
     try {
-      signsCache[key] = await loadChimsSigns()
+      signsCache[key] = await loaders[key]()
     } finally {
       loading.value = false
     }

@@ -2,6 +2,7 @@ import zhRaw from '../../data/data.zh.json'
 
 export const SYSTEMS = [
   { key: 'zh', name: '浅草寺观音签' },
+  { key: 'mazu', name: '妈祖灵签' },
   { key: 'chims', name: '诸葛神算' }
 ]
 
@@ -30,6 +31,21 @@ export async function loadChimsSigns() {
     colA: item.intpn_1, // 左列：签意概述
     colB: item.intpn_2, // 右列：文言详解
     trigram: item.trigram
+  }))
+}
+
+// 妈祖灵签六十甲子签：数据约 100KB，动态加载（点击切换到该系统时才请求）
+// 妈祖签无吉凶评级，签徽直接展示干支；allusion 典故 / detail 白话解签 / omen 各事预兆
+export async function loadMazuSigns() {
+  const mod = await import('../../data/mazu.json')
+  return mod.default.map((item) => ({
+    number: item.number,
+    ganzhi: item.ganzhi,
+    name: item.ganzhi,
+    poem: item.poem,
+    allusion: item.allusion,
+    detail: item.explain,
+    omen: item.omen
   }))
 }
 
