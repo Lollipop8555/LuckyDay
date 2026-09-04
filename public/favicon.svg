@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- 宣纸底 -->
+  <rect width="512" height="512" fill="#faf6ef"/>
+  <!-- 印章外框 -->
+  <rect x="96" y="96" width="320" height="320" rx="64" fill="none" stroke="#b4552d" stroke-width="14"/>
+  <!-- 印章内衬 -->
+  <rect x="120" y="120" width="272" height="272" rx="50" fill="none" stroke="#b4552d" stroke-width="4" opacity="0.25"/>
+  <!-- 签（x 居中；y 为文字基线，按字号 196 下移约 0.36em，使字形视觉中心落在内框中线 256） -->
+  <text x="256" y="326" text-anchor="middle" font-size="196" font-weight="700" font-family="'Songti SC','Noto Serif SC','STSong',serif" fill="#b4552d">签</text>
+</svg>
