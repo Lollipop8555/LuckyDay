@@ -8,12 +8,21 @@ const distDir = path.join(__dirname, '..', 'dist')
 
 const app = express()
 
-// 静态资源托管：非 index.html 长缓存，index.html 不缓存
+// 静态资源缓存策略：
+// - sw.js / manifest / index.html / json 数据：不缓存，保证能及时更新
+// - 其余带内容哈希的构建产物：长期强缓存
 app.use(
   express.static(distDir, {
     setHeaders(res, filePath) {
-      if (filePath.endsWith('index.html')) {
-        res.setHeader('Cache-Control', 'no-cache')
+      const name = path.basename(filePath)
+      const noCache =
+        name === 'index.html' ||
+        name === 'sw.js' ||
+        name === 'manifest.webmanifest' ||
+        filePath.endsWith('.json')
+
+      if (noCache) {
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
       } else {
         res.setHeader('Cache-Control', 'public, max-age=2592000') // 30 天
       }
